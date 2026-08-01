@@ -34,6 +34,13 @@
   .lab{font-size:11px; color:var(--ink2);}
   input{width:100%; background:var(--paper2); border:1px solid var(--rule); border-radius:2px; padding:10px; font-size:15px; color:var(--ink); font-family:var(--mono); font-variant-numeric:tabular-nums;}
   input.text{font-family:var(--sans);}
+  .ta{width:100%; background:var(--paper2); border:1px solid var(--rule); border-radius:2px; padding:9px 10px; font-size:14px; color:var(--ink); font-family:var(--sans); line-height:1.5; resize:none; display:block;}
+  .ta:focus{outline:2px solid var(--seal); outline-offset:1px;}
+  .ta::placeholder{color:#A9B0A8;}
+  em.cap{font-style:normal; font-size:10px; color:var(--ink3); margin-left:5px;}
+  .edb{display:flex; flex-direction:column; gap:4px;}
+  .edb>span{font-size:10px; color:var(--ink3);}
+  input[type=date]{-webkit-appearance:none; appearance:none; min-height:41px;}
   input:focus{outline:2px solid var(--seal); outline-offset:1px;}
   input::placeholder{color:#A9B0A8;}
 
@@ -87,6 +94,23 @@
   .lim-note{margin-top:10px; font-size:11px; line-height:1.6; color:var(--ink2);}
   .ovr{display:block; width:calc(100% + 32px); margin:0 -16px -16px; padding:11px; background:#2C3742; color:#9AA6B0; font-size:12px;}
   .tag-ovr{background:var(--seal); color:#fff; border-color:var(--seal);}
+  .ch{font-size:13px; font-weight:600; margin:0 0 12px;}
+  .ch span{font-family:var(--mono); font-size:11px; color:var(--ink3); font-weight:400; margin-left:6px;}
+  .pgrid{display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px 10px;}
+  .pm{display:flex; flex-direction:column; gap:2px; min-width:0;}
+  .pm span{font-size:10px; color:var(--ink3);}
+  .pm b{font-family:var(--mono); font-size:17px; font-variant-numeric:tabular-nums;}
+  .pm i{font-style:normal; font-size:9px; color:var(--ink3);}
+  .curve{margin-top:14px; border-top:1px solid var(--rule); padding-top:10px;}
+  .curve svg{width:100%; height:64px; display:block;}
+  .acct-up{display:flex; justify-content:space-between; align-items:center; gap:10px; margin-top:12px; padding-top:10px; border-top:1px solid var(--rule);}
+  .acct-up b{font-family:var(--mono); font-size:15px; margin-left:8px;}
+  .period{margin-bottom:10px;}
+  .ghead{display:flex; justify-content:space-between; align-items:baseline; gap:10px; padding:14px 0 7px; border-bottom:2px solid var(--ink);}
+  .ghead:not(:first-child){margin-top:16px;}
+  .gh-l{font-size:13px; font-weight:600;}
+  .gh-l span{font-family:var(--mono); font-size:10px; color:var(--ink3); font-weight:400; margin-left:8px;}
+  .ghead b{font-family:var(--mono); font-size:16px; font-variant-numeric:tabular-nums;}
   .list{list-style:none; margin:0; padding:0;}
   .item{border-bottom:1px solid var(--rule); border-left:3px solid var(--rule); padding:11px 0 11px 11px;}
   .item.win{border-left-color:var(--jade);}
@@ -99,7 +123,7 @@
   .it-tag{font-family:var(--mono); font-size:9px; letter-spacing:.06em; color:var(--ink3); border:1px solid var(--rule); padding:1px 4px; margin-left:5px; vertical-align:2px;}
   .it-r{font-family:var(--mono); font-size:19px; font-weight:600; font-variant-numeric:tabular-nums; line-height:1.05;}
   .flat.it-r{font-size:11px; font-weight:400; letter-spacing:.04em;}
-  .it-acct{font-family:var(--mono); font-size:11px; margin-top:2px;}
+  .it-acct{font-family:var(--mono); font-size:11px; margin-top:3px; color:var(--ink3);}
   .it-price{font-family:var(--mono); font-size:14px; margin-top:7px; font-variant-numeric:tabular-nums; cursor:pointer;}
   .it-price em{font-style:normal; color:var(--seal); font-size:13px; margin-left:2px;}
   .it-size{font-family:var(--mono); font-size:11px; color:var(--ink3); margin-top:3px; cursor:pointer;}
@@ -107,7 +131,10 @@
   .it-size b.over{color:var(--seal); font-weight:600;}
   .caret{float:right; color:var(--ink3); font-size:10px; transition:transform .15s;}
   .item.on .caret{display:inline-block; transform:rotate(180deg);}
-  .it-edit{display:none; gap:6px; align-items:center; margin-top:10px;}
+  .it-review{font-size:12px; color:var(--ink2); margin-top:6px; line-height:1.5; padding-left:8px; border-left:2px solid var(--paper3);}
+  .it-edit{display:none; flex-direction:column; gap:6px; margin-top:10px;}
+  .ed-row{display:flex; gap:6px; align-items:center;}
+  .ed-row .ed{flex:1;}
   .item.on .it-edit{display:flex;}
   .ed{flex:1; flex-direction:row; align-items:center; gap:6px; min-width:0;}
   .ed span{font-size:10px; color:var(--ink3); flex-shrink:0;}
@@ -141,6 +168,10 @@
       <label><span class="lab">주 한도 (R)</span><input id="limW" inputmode="decimal" placeholder="4"></label>
       <label><span class="lab">월 한도 (R)</span><input id="limM" inputmode="decimal" placeholder="6"></label>
     </div>
+    <div class="acct-up" id="acctUp" style="display:none">
+      <div><span class="lab">마지막 갱신 이후 실현</span><b id="au-r">—</b></div>
+      <button class="mini" id="acctApply">계좌 갱신</button>
+    </div>
     <p class="hint">한도에 닿으면 신규 진입만 잠깁니다. 보유 포지션의 손절과 청산 기록은 계속 됩니다. 비우면 작동하지 않습니다.</p>
   </div>
 
@@ -155,6 +186,7 @@
       <label><span class="lab">GitHub 토큰 (gist 권한)</span><input id="ghToken" type="password" class="text" placeholder="ghp_…"></label>
       <label><span class="lab">Gist ID</span><input id="ghGist" class="text" placeholder="아래 버튼으로 새로 만들거나 붙여넣기"></label>
       <button class="mini wide" id="ghCreate">새 Gist 만들기</button>
+        <button class="mini wide" id="csv">CSV 내보내기</button>
       <p class="hint">토큰은 이 기기에만 저장되고 Gist에는 올라가지 않습니다. GitHub → Settings → Developer settings → Personal access tokens (classic)에서 <b>gist</b> 권한만 체크해 발급하세요. 두 기기에 같은 토큰·Gist ID를 넣으면 연결됩니다.</p>
     </div>
   </div>
@@ -168,6 +200,8 @@
         <label><span class="lab">진입가</span><input id="entry" inputmode="decimal"></label>
         <label><span class="lab">손절가</span><input id="stop" inputmode="decimal"></label>
       </div>
+      <label><span class="lab">진입근거 <em class="cap">최대 2줄</em></span><textarea id="entryNote" class="ta" rows="2" maxlength="140" placeholder="이 자리에 들어가는 이유"></textarea></label>
+      <label><span class="lab">진입일</span><input id="tradeDate" type="date"></label>
       <label><span class="lab">감수할 리스크</span>
         <div class="mkt rbtns">
           <button data-r="0.5">0.5R</button><button data-r="1" class="on">1R</button><button data-r="2">2R</button>
@@ -189,6 +223,23 @@
     </div>
   </div>
 
+  <div class="card" id="perfCard" style="display:none">
+    <h2 class="ch">성과 <span id="perfN"></span></h2>
+    <div class="pgrid">
+      <div class="pm"><span>기대값</span><b id="p-exp">—</b><i>매매 1건당 평균</i></div>
+      <div class="pm"><span>손익비</span><b id="p-po">—</b><i>평균수익 ÷ 평균손실</i></div>
+      <div class="pm"><span>평균 수익</span><b id="p-aw">—</b></div>
+      <div class="pm"><span>평균 손실</span><b id="p-al">—</b></div>
+      <div class="pm"><span>최대 낙폭</span><b id="p-dd">—</b><i>고점 대비</i></div>
+      <div class="pm"><span>최대 연속손실</span><b id="p-str">—</b></div>
+    </div>
+    <div class="curve"><svg id="eq" viewBox="0 0 300 64" preserveAspectRatio="none"></svg></div>
+    <p class="hint" id="p-note"></p>
+  </div>
+
+  <div class="mkt period" id="period">
+    <button data-p="all" class="on">전체</button><button data-p="week">주별</button><button data-p="month">월별</button>
+  </div>
   <ul class="list" id="list"></ul>
   <div class="empty" id="empty">아직 기록이 없습니다.<br>진입가와 손절가를 넣으면 비중이 계산됩니다.</div>
 </div>
@@ -196,8 +247,8 @@
 <div class="sum">
   <div><span>건수</span><b id="s-n">0</b></div>
   <div><span>승률</span><b id="s-win">—</b></div>
-  <div><span>누적 R</span><b id="s-r">—</b></div>
-  <div><span>계좌 %</span><b id="s-acct">—</b></div>
+  <div><span>누적 R = 계좌 %</span><b id="s-r">—</b></div>
+  <div><span>평균 R</span><b id="s-acct">—</b></div>
 </div>
 <div class="toast" id="toast"></div>
 
@@ -219,6 +270,7 @@ function saveJSON(k,v){ return writeRaw(k, JSON.stringify(v)); }
 
 /* ── 상태 ── */
 var KEY = { trades:"simple:trades", set:"simple:settings", grave:"simple:graveyard", sync:"simple:sync" };
+var groupBy = "all";
 var trades = [], settings = { account:"", fx:"", limD:"", limW:"", limM:"" }, market = "KR", riskR = 1, overrideOnce = false, formValid = false, graveyard = [], sync = { token:"", gist:"", last:0 }, pushTimer = null, syncing = false;
 
 var $ = function(id){ return document.getElementById(id); };
@@ -226,6 +278,21 @@ function num(v){ var n = parseFloat(String(v==null?"":v).replace(/[, ]/g,"")); r
 function fmt(n,d){ return n==null||!isFinite(n) ? "—" : n.toLocaleString("ko-KR",{maximumFractionDigits: d==null?0:d}); }
 function won(n){ return n==null||!isFinite(n) ? "—" : "₩"+fmt(n); }
 function usd(n){ return n==null||!isFinite(n) ? "—" : "$"+n.toLocaleString("ko-KR",{minimumFractionDigits:2, maximumFractionDigits:2}); }
+function pad2(x){ return String(x).padStart(2,"0"); }
+/* 최대 2줄 — 줄바꿈 하나까지만 허용한다 */
+function clamp2(v){
+  var a = String(v).split("\n");
+  return a.length <= 2 ? v : a.slice(0,2).join("\n");
+}
+function dateStr(ts){ var d = new Date(ts||Date.now()); return d.getFullYear()+"-"+pad2(d.getMonth()+1)+"-"+pad2(d.getDate()); }
+function todayStr(){ var d = new Date(); return d.getFullYear()+"-"+pad2(d.getMonth()+1)+"-"+pad2(d.getDate()); }
+/* 과거 날짜는 정오로 고정해 시간대 경계 문제를 피한다 */
+function dateToTs(str){
+  if(!str) return null;
+  var a = str.split("-").map(Number);
+  if(a.length!==3 || !a[0]) return null;
+  return new Date(a[0], a[1]-1, a[2], 12, 0, 0).getTime();
+}
 function toast(m){ var t=$("toast"); t.textContent=m; t.classList.add("on"); setTimeout(function(){t.classList.remove("on");},2000); }
 
 /* 1R = 계좌 1%. 손절폭과 감수할 R이 정해지면 비중은 하나로 결정된다.
@@ -261,6 +328,22 @@ function rOf(t){
 }
 function rClass(r){ return r==null ? "flat" : r>0 ? "plus" : r<0 ? "minus" : "flat"; }
 function rText(r){ return r==null ? "—" : (r>0?"+":"")+r.toFixed(2)+"R"; }
+
+/* ── 기간 묶음 ── 진입일 기준으로 묶는다 */
+function weekKey(ts){ var d = new Date(ts); d.setHours(0,0,0,0); d.setDate(d.getDate()-((d.getDay()+6)%7)); return d.getTime(); }
+function monthKey(ts){ var d = new Date(ts); return new Date(d.getFullYear(), d.getMonth(), 1).getTime(); }
+function groupLabel(ts, mode){
+  var d = new Date(ts), p = function(x){ return String(x).padStart(2,"0"); };
+  if(mode==="month") return d.getFullYear()+"년 "+(d.getMonth()+1)+"월";
+  var e = new Date(ts + 6*86400000);
+  return p(d.getMonth()+1)+"/"+p(d.getDate())+" – "+p(e.getMonth()+1)+"/"+p(e.getDate());
+}
+function groupStats(list){
+  var rs = list.map(acctR).filter(function(v){ return v!=null; });
+  var sum = rs.reduce(function(a,b){ return a+b; }, 0);
+  return { n:list.length, closed:rs.length, sum:sum,
+           win: rs.length ? Math.round(rs.filter(function(v){return v>0;}).length/rs.length*100) : null };
+}
 
 /* ── 동기화 (GitHub 비공개 Gist) ──
    기기마다 브라우저 저장소가 따로라 중간 저장소를 하나 둔다.
@@ -482,12 +565,34 @@ function render(){
   var list = $("list"); list.innerHTML = "";
   $("empty").style.display = trades.length ? "none" : "block";
 
-  trades.forEach(function(t){
+  var groups;
+  if(groupBy === "all"){
+    groups = [{ key:null, list:trades }];
+  } else {
+    var keyOf = groupBy === "week" ? weekKey : monthKey;
+    var map = {};
+    trades.forEach(function(t){ var k = keyOf(t.at || Date.now()); (map[k] = map[k] || []).push(t); });
+    groups = Object.keys(map).map(Number).sort(function(a,b){ return b-a; })
+      .map(function(k){ return { key:k, list:map[k] }; });
+  }
+
+  groups.forEach(function(g){
+    if(g.key !== null){
+      var st = groupStats(g.list);
+      var hd = document.createElement("li");
+      hd.className = "ghead";
+      hd.innerHTML = '<div class="gh-l">'+groupLabel(g.key, groupBy)+
+        '<span>'+st.n+'건'+(st.win!=null ? " · 승률 "+st.win+"%" : "")+'</span></div>'+
+        '<b class="'+(st.sum>0?"plus":st.sum<0?"minus":"flat")+'">'+
+        (st.closed ? (st.sum>0?"+":"")+st.sum.toFixed(2)+"R" : "—")+'</b>';
+      list.appendChild(hd);
+    }
+    g.list.forEach(function(t){
     var mult = num(t.riskR) || 1;
     var ent = num(t.entry), stp = num(t.stop);
     var z = sizing(ent, stp, mult);
-    var r = rOf(t);
-    var impact = r==null ? null : r*mult;
+    var mv = rOf(t);                 /* 손절폭 배수 — 자리 선정의 질 */
+    var r = mv==null ? null : mv*mult; /* 계좌 R (1R = 계좌 1%) — 실제 손익 */
 
     /* 저장 당시 환율이 없어 수량이 비어 있으면 지금 설정으로 다시 계산한다 */
     var sh = num(t.shares);
@@ -500,7 +605,8 @@ function render(){
     var li = document.createElement("li");
     li.className = "item " + (r==null ? "open" : r>0 ? "win" : r<0 ? "loss" : "open");
 
-    var bits = [];
+    var dd = new Date(t.at || Date.now());
+    var bits = [pad2(dd.getMonth()+1)+"/"+pad2(dd.getDate())];
     if(sh!=null) bits.push(fmt(sh)+"주");
     if(spent!=null) bits.push(t.market==="US" ? usd(spent) : won(spent));
     else if(t.market==="US" && !fx) bits.push("환율 입력 필요");
@@ -513,39 +619,60 @@ function render(){
           (t.override ? '<span class="it-tag tag-ovr">한도초과</span>' : '')+'</div>'+
         '<div class="it-res">'+
           '<div class="it-r '+rClass(r)+'">'+(r==null?"미청산":rText(r))+'</div>'+
-          '<div class="it-acct '+rClass(impact)+'">'+(impact==null?"":"계좌 "+(impact>0?"+":"")+impact.toFixed(2)+"%")+'</div>'+
+          '<div class="it-acct">'+(mv==null?"":"손절폭 "+(mv>0?"+":"")+mv.toFixed(1)+"배")+'</div>'+
         '</div>'+
       '</div>'+
       '<div class="it-price">'+(ent!=null&&stp!=null ? fmt(ent,2)+' → '+fmt(stp,2)+
         ' <em>'+(z?("-"+z.stopPct.toFixed(2)+"%"):"")+'</em>' : '')+'</div>'+
       '<div class="it-size">'+bits.join(' · ')+'<span class="caret">▾</span></div>'+
+      (t.review ? '<div class="it-review"></div>' : '')+
       '<div class="it-edit">'+
-        '<label class="ed"><span>청산가</span><input inputmode="decimal" data-f="exit"></label>'+
-        '<label class="ed"><span>R</span><input inputmode="decimal" data-f="rManual" placeholder="직접"></label>'+
-        '<button class="del" data-del="1">삭제</button>'+
+        '<label class="edb"><span>진입근거</span><textarea class="ta" rows="2" maxlength="140" data-f="entryNote"></textarea></label>'+
+        '<div class="ed-row">'+
+          '<label class="ed"><span>청산가</span><input inputmode="decimal" data-f="exit"></label>'+
+          '<button class="del" data-del="1">삭제</button>'+
+        '</div>'+
+        '<label class="edb"><span>청산근거</span><textarea class="ta" rows="2" maxlength="140" data-f="exitNote" placeholder="왜 팔았나"></textarea></label>'+
+        '<label class="ed"><span>복기</span><input class="text" data-f="review" placeholder="한 줄로 — 무엇을 배웠나"></label>'+
       '</div>';
 
     li.querySelector(".it-name").textContent = t.name;
+    if(t.review) li.querySelector(".it-review").textContent = t.review;
     if(t.exit) li.classList.add("on");
 
-    var ins = li.querySelectorAll(".it-edit input");
-    ins[0].value = t.exit || ""; ins[1].value = t.rManual || "";
+    var ins = li.querySelectorAll(".it-edit [data-f]");
     ins.forEach(function(inp){
+      var f = inp.getAttribute("data-f");
+      inp.value = t[f] || "";
+      if(f !== "exit"){
+        inp.addEventListener("input", function(){
+          if(inp.tagName === "TEXTAREA") inp.value = clamp2(inp.value);
+          t[f] = inp.value; touch(t); persistTrades();
+          if(f === "review"){
+            var rv = li.querySelector(".it-review");
+            if(inp.value && !rv){
+              rv = document.createElement("div"); rv.className = "it-review";
+              li.querySelector(".it-edit").before(rv);
+            }
+            if(rv) rv.textContent = inp.value;
+          }
+        });
+        return;
+      }
       inp.addEventListener("input", function(){
-        t[inp.getAttribute("data-f")] = inp.value;
+        t[f] = inp.value;
         var rr0 = rOf(t);
-        if(rr0 != null && !t.closedAt) t.closedAt = Date.now();
+        if(rr0 != null && !t.closedAt) t.closedAt = t.backfill ? (t.at || Date.now()) : Date.now();
         if(rr0 == null) t.closedAt = null;
         touch(t); persistTrades();
-        var rr = rr0, ai = rr==null ? null : rr*mult;
+        var mv2 = rr0, rr = mv2==null ? null : mv2*mult;
         var wasOn = li.classList.contains("on");
         li.className = "item " + (rr==null ? "open" : rr>0 ? "win" : rr<0 ? "loss" : "open") + (wasOn ? " on" : "");
         var re = li.querySelector(".it-r");
         re.textContent = rr==null ? "미청산" : rText(rr);
         re.className = "it-r " + rClass(rr);
-        var ae = li.querySelector(".it-acct");
-        ae.textContent = ai==null ? "" : "계좌 "+(ai>0?"+":"")+ai.toFixed(2)+"%";
-        ae.className = "it-acct " + rClass(ai);
+        li.querySelector(".it-acct").textContent =
+          mv2==null ? "" : "손절폭 "+(mv2>0?"+":"")+mv2.toFixed(1)+"배";
         summary(); renderLimits();
       });
     });
@@ -562,25 +689,103 @@ function render(){
     });
 
     list.appendChild(li);
+    });
   });
   summary();
   renderLimits();
 }
 
+/* ── 성과 지표 ── 모두 R 단위. 통화가 섞여도 비교 가능한 이유가 이것이다. */
+function perf(){
+  var done = trades.filter(function(t){ return acctR(t) != null; })
+    .sort(function(a,b){ return (a.closedAt||a.at||0) - (b.closedAt||b.at||0); });
+  var rs = done.map(acctR);
+  if(!rs.length) return null;
+  var wins = rs.filter(function(v){ return v>0; }), losses = rs.filter(function(v){ return v<0; });
+  var avg = function(a){ return a.length ? a.reduce(function(x,y){return x+y;},0)/a.length : 0; };
+  var aw = avg(wins), al = avg(losses);
+  var winRate = wins.length/rs.length;
+  var cum = 0, peak = 0, dd = 0, streak = 0, maxStreak = 0, curve = [0];
+  rs.forEach(function(v){
+    cum += v; curve.push(cum);
+    if(cum > peak) peak = cum;
+    if(peak - cum > dd) dd = peak - cum;
+    if(v < 0){ streak++; if(streak > maxStreak) maxStreak = streak; } else streak = 0;
+  });
+  return { n:rs.length, exp: avg(rs), payoff: al ? Math.abs(aw/al) : null,
+           aw:aw, al:al, dd:-dd, maxStreak:maxStreak, curve:curve, sum:cum, winRate:winRate };
+}
+
+function drawCurve(curve){
+  var svg = $("eq"); if(!svg) return;
+  var W = 300, H = 64;
+  var lo = Math.min.apply(null, curve), hi = Math.max.apply(null, curve);
+  if(hi - lo < 1){ hi = lo + 1; }
+  var x = function(i){ return curve.length<2 ? 0 : i/(curve.length-1)*W; };
+  var y = function(v){ return H - 4 - (v-lo)/(hi-lo)*(H-8); };
+  var pts = curve.map(function(v,i){ return x(i).toFixed(1)+","+y(v).toFixed(1); }).join(" ");
+  var zero = (lo<=0 && hi>=0) ? '<line x1="0" y1="'+y(0).toFixed(1)+'" x2="'+W+'" y2="'+y(0).toFixed(1)+'" stroke="var(--rule)" stroke-width="1" vector-effect="non-scaling-stroke"/>' : "";
+  var end = curve[curve.length-1];
+  svg.innerHTML = zero +
+    '<polyline points="'+pts+'" fill="none" stroke="'+(end>=0?"var(--jade)":"var(--seal)")+
+    '" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linejoin="round"/>';
+}
+
+function renderPerf(){
+  var P = perf(), card = $("perfCard");
+  if(!P){ card.style.display = "none"; return; }
+  card.style.display = "block";
+  $("perfN").textContent = "종료 "+P.n+"건 · 승률 "+Math.round(P.winRate*100)+"%";
+  var sign = function(v){ return (v>0?"+":"")+v.toFixed(2)+"R"; };
+  var put = function(id, txt, v){ var e=$(id); e.textContent=txt; e.className = v==null?"":(v>0?"plus":v<0?"minus":"flat"); };
+  put("p-exp", sign(P.exp), P.exp);
+  put("p-po", P.payoff==null ? "—" : P.payoff.toFixed(2), null);
+  put("p-aw", P.aw ? sign(P.aw) : "—", P.aw);
+  put("p-al", P.al ? sign(P.al) : "—", P.al);
+  put("p-dd", P.dd ? P.dd.toFixed(2)+"R" : "0R", P.dd);
+  put("p-str", P.maxStreak+"건", null);
+  drawCurve(P.curve);
+  var notes = [];
+  if(P.n < 30) notes.push("표본 "+P.n+"건 — 30건은 넘어야 지표가 안정됩니다. 지금 숫자는 참고용입니다.");
+  if(P.exp <= 0 && P.n >= 10) notes.push("기대값이 0 이하입니다. 매매를 늘릴수록 손실이 쌓이는 구간입니다.");
+  var limD = num(settings.limD);
+  if(limD && P.maxStreak && Math.abs(P.al||0)*P.maxStreak > limD*1.5)
+    notes.push("최대 연속손실 "+P.maxStreak+"건이면 일 한도 "+limD+"R로는 자주 걸립니다. 한도나 사이즈 중 하나를 조정할 만합니다.");
+  $("p-note").textContent = notes.join(" ");
+}
+
+/* ── 계좌 갱신 ── 1R은 계좌의 1%이므로 계좌가 변하면 1R도 변한다 */
+function unreflected(){
+  var base = num(settings.baseAt) || 0;
+  return trades.reduce(function(a,t){
+    var v = acctR(t);
+    return (v==null || (t.closedAt||0) <= base) ? a : a+v;
+  }, 0);
+}
+function renderAcctUp(){
+  var acct = num(settings.account), r = unreflected(), el = $("acctUp");
+  if(!acct || Math.abs(r) < 0.01){ el.style.display = "none"; return; }
+  el.style.display = "flex";
+  var b = $("au-r");
+  b.textContent = (r>0?"+":"")+r.toFixed(2)+"R  ≈ "+won(acct*r/100);
+  b.className = r>0 ? "plus" : "minus";
+}
+
 function summary(){
-  /* 결과 R은 손절폭 기준 배수. 계좌 영향은 여기에 감수한 R배수를 곱해야 나온다. */
-  var done = trades.filter(function(t){ var r=rOf(t); return r!=null && isFinite(r); });
-  var rs = done.map(rOf);
+  /* R은 계좌 기준 고정 단위. 1R = 계좌 1%이므로 누적 R이 곧 계좌 수익률이다. */
+  var done = trades.filter(function(t){ return acctR(t) != null; });
+  var rs = done.map(acctR);
   var sum = rs.reduce(function(a,b){ return a+b; }, 0);
-  var acctSum = done.reduce(function(a,t){ return a + rOf(t)*(num(t.riskR)||1); }, 0);
   $("s-n").textContent = trades.length;
   $("s-win").textContent = rs.length ? Math.round(rs.filter(function(r){return r>0;}).length/rs.length*100)+"%" : "—";
-  $("s-r").textContent = rs.length ? (sum>0?"+":"")+sum.toFixed(2) : "—";
-  $("s-acct").textContent = rs.length ? (acctSum>0?"+":"")+acctSum.toFixed(2)+"%" : "—";
+  $("s-r").textContent = rs.length ? (sum>0?"+":"")+sum.toFixed(2)+"R" : "—";
+  $("s-acct").textContent = rs.length ? (sum/rs.length>0?"+":"")+(sum/rs.length).toFixed(2)+"R" : "—";
+  renderPerf(); renderAcctUp();
 }
 
 /* ── 이벤트 ── */
 ["entry","stop","name"].forEach(function(id){ $(id).addEventListener("input", preview); });
+$("entryNote").addEventListener("input", function(e){ e.target.value = clamp2(e.target.value); });
 function saveSettings(){ settings.updatedAt = Date.now(); saveJSON(KEY.set, settings); schedulePush(); }
 $("account").addEventListener("input", function(e){ settings.account = e.target.value; saveSettings(); preview(); render(); });
 $("fx").addEventListener("input", function(e){ settings.fx = e.target.value; saveSettings(); preview(); render(); });
@@ -612,6 +817,41 @@ $("ghCreate").addEventListener("click", async function(){
     doSync(true);
   }catch(e){ syncState(e.message||"생성 실패", "bad"); toast(e.message||"생성 실패"); }
 });
+$("acctApply").addEventListener("click", function(){
+  var acct = num(settings.account), r = unreflected();
+  if(!acct) return;
+  var next = Math.round(acct * (1 + r/100));
+  settings.account = String(next); settings.baseAt = Date.now();
+  $("account").value = settings.account;
+  saveSettings(); preview(); render();
+  toast("계좌 "+won(next)+" · 1R "+won(next*0.01));
+});
+
+$("csv").addEventListener("click", function(){
+  var head = ["진입일","종목","시장","감수R","진입가","손절가","청산가","수량","결과R","손절폭배수","진입근거","청산근거","복기"];
+  var esc = function(v){ return '"'+String(v==null?"":v).replace(/"/g,'""')+'"'; };
+  var rows = trades.slice().sort(function(a,b){ return (a.at||0)-(b.at||0); }).map(function(t){
+    var mv = rOf(t), mult = num(t.riskR)||1;
+    return [dateStr(t.at), t.name, t.market, mult, t.entry, t.stop, t.exit,
+            t.shares==null?"":t.shares,
+            mv==null?"":(mv*mult).toFixed(2), mv==null?"":mv.toFixed(2),
+            t.entryNote||"", t.exitNote||"", t.review||""].map(esc).join(",");
+  });
+  var blob = new Blob(["\ufeff"+head.map(esc).join(",")+"\n"+rows.join("\n")], {type:"text/csv;charset=utf-8"});
+  var a = document.createElement("a");
+  a.href = URL.createObjectURL(blob); a.download = "trade-log-"+todayStr()+".csv";
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(function(){ URL.revokeObjectURL(a.href); }, 1000);
+  toast(trades.length+"건 내보냄");
+});
+
+document.querySelectorAll("[data-p]").forEach(function(b){
+  b.addEventListener("click", function(){
+    groupBy = b.getAttribute("data-p");
+    document.querySelectorAll("[data-p]").forEach(function(x){ x.classList.toggle("on", x===b); });
+    render();
+  });
+});
 window.addEventListener("online", function(){ if(syncReady()) doSync(false); });
 $("override").addEventListener("click", function(){ overrideOnce = true; syncSave(); });
 document.querySelectorAll("[data-mkt]").forEach(function(b){
@@ -639,12 +879,18 @@ $("rcustom").addEventListener("input", function(e){
 
 $("save").addEventListener("click", function(){
   var q = qtyOf(num($("entry").value), num($("stop").value), riskR, num(settings.account), market, num(settings.fx));
+  var dstr = $("tradeDate").value, isToday = (dstr === todayStr());
+  var at = isToday ? Date.now() : (dateToTs(dstr) || Date.now());
   var t = { id:"t"+Date.now(), name:$("name").value.trim(), market:market,
             entry:$("entry").value, stop:$("stop").value, exit:"", rManual:"", riskR:riskR,
-            shares: q ? q.shares : null, acctAt:settings.account, at:Date.now(),
-            closedAt:null, override: overrideOnce || false };
-  touch(t); trades.unshift(t); persistTrades();
-  $("name").value=""; $("entry").value=""; $("stop").value="";
+            entryNote: clamp2($("entryNote").value.trim()), exitNote:"", review:"",
+            shares: q ? q.shares : null, acctAt:settings.account, at:at,
+            backfill: !isToday, closedAt:null, override: overrideOnce || false };
+  touch(t); trades.unshift(t);
+  trades.sort(function(a,b){ return (b.at||0) - (a.at||0); });
+  persistTrades();
+  $("name").value=""; $("entry").value=""; $("stop").value=""; $("entryNote").value="";
+  $("tradeDate").value = dstr;   /* 연속 입력을 위해 날짜는 유지 */
   if(overrideOnce) toast("한도 초과 상태로 기록됨 — 표시가 남습니다");
   else toast(t.name+" 기록됨");
   overrideOnce = false;
@@ -654,11 +900,12 @@ $("save").addEventListener("click", function(){
 (async function(){
   trades = await loadJSON(KEY.trades, []); if(!Array.isArray(trades)) trades = [];
   graveyard = await loadJSON(KEY.grave, []); if(!Array.isArray(graveyard)) graveyard = [];
-  var d0 = { account:"", fx:"", limD:"", limW:"", limM:"" };
+  var d0 = { account:"", fx:"", limD:"", limW:"", limM:"", baseAt:0 };
   settings = await loadJSON(KEY.set, d0) || d0;
   sync = await loadJSON(KEY.sync, { token:"", gist:"", last:0 }) || { token:"", gist:"", last:0 };
   ["account","fx","limD","limW","limM"].forEach(function(id){ $(id).value = settings[id] || ""; });
   $("ghToken").value = sync.token || ""; $("ghGist").value = sync.gist || "";
+  $("tradeDate").value = todayStr();
   render(); preview();
   if(syncReady()) doSync(false); else syncState("미연결", "off");
 })();
